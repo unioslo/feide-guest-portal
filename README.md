@@ -18,3 +18,11 @@ You need it installed in your python path. On the development server this was do
     sudo pip install .
 
 If you don't have pip you can use the standard `python setup.py` method instead.
+
+# Setup
+## guest/settings_local.py
+Copy `guest/settings_local.py.template` to `guest/settings_local.py` and edit it to fit your installation.
+
+## guest/wsgi.py
+Edit `guest/wsgi.py`.
+Add the absolute root path of the project to `sys.path` so that imports work correctly.
