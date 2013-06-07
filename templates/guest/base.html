@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>FeideGuest - {% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <ul>
+        <li><a href="{% url guest.views.home %}">Home</a></li>
+        {% if request.session.uid %}
+            <li><a href="{% url guest.views.me %}">Show Profile</a></li>
+            <li><a href="{% url guest.views.edit_me %}">Edit Profiles</a></li>
+            <li>Logged in as {{ request.session.uid }} - <a href="{% url guest.views.logout %}">Log out</a></li>
+        {% else %}
+            <li><form method="post" action="{% url guest.views.login %}">{% csrf_token %}<input name="uid" placeholder="username" /><input type="password" placeholder="password" name="userPassword" /><input type="submit" value="Login" /></form></li>
+            <li><a href="{% url guest.views.recover %}">Recover account</a></li>
+        {% endif %}
+        <li><a href="{% url guest.views.new %}">Register new account</a></li>
+    </ul>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

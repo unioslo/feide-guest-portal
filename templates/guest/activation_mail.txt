@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi, someone has registered this mail address as a Feide Guest Account.
+
+If this was you, please click this link:
+{% url guest.views.activate code=code %}
+If not, please disregard this message.
+
+{% endautoescape %}

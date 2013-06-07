@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi, someone has requested a password reset for your account {{ guest.uid }} in the Feide Guest system.
+
+If this was you, please click this link to reset your password:
+{% url guest.views.reset_password code=code %}
+If not, please disregard this message.
+
+{% endautoescape %}
