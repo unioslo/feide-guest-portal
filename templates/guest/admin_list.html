@@ -1,0 +1,13 @@
+{% extends "guest/base.html" %}
+
+{% block content %}
+<form method="get" action="">{% csrf_token %}
+    <input type="text" name="q" placeholder="Search" />
+    <input type="submit" hidden />
+</form>
+<ul>
+  {% for guest in  guests %}
+  <li>{{ guest.uid }} - {{ guest.mail }} <a href="{% url guest.views.admin_show uid=guest.uid %}">show</a> <a href="{% url guest.views.admin_edit uid=guest.uid %}">edit</a> <a href="{% url guest.views.admin_delete uid=guest.uid %}">delete</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

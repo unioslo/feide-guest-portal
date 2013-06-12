@@ -1,19 +1,25 @@
+{% load i18n %}
 <html>
   <head>
-    <title>FeideGuest - {% block title %}{% endblock %}</title>
+    <title>{% trans "FeideGuest" %} - {{ title }}</title>
   </head>
   <body>
     <ul>
-        <li><a href="{% url guest.views.home %}">Home</a></li>
+      <li><a href="{% url guest.views.home %}">{% trans "Home" %}</a></li>
         {% if request.session.uid %}
-            <li><a href="{% url guest.views.me %}">Show Profile</a></li>
-            <li><a href="{% url guest.views.edit_me %}">Edit Profiles</a></li>
-            <li>Logged in as {{ request.session.uid }} - <a href="{% url guest.views.logout %}">Log out</a></li>
+        <li><a href="{% url guest.views.me %}">{% trans "Show Profile" %}</a></li>
+        <li><a href="{% url guest.views.edit_me %}">{% trans "Edit Profiles" %}</a></li>
+        <li>{% trans "Logged in as" %} {{ request.session.uid }} - <a href="{% url guest.views.logout %}">{% trans "Log out" %}</a></li>
         {% else %}
             <li><form method="post" action="{% url guest.views.login %}">{% csrf_token %}<input name="uid" placeholder="username" /><input type="password" placeholder="password" name="userPassword" /><input type="submit" value="Login" /></form></li>
-            <li><a href="{% url guest.views.recover %}">Recover account</a></li>
+            <li><a href="{% url guest.views.recover %}">{% trans "Recover account" %}</a></li>
         {% endif %}
-        <li><a href="{% url guest.views.new %}">Register new account</a></li>
+        <li><a href="{% url guest.views.new %}">{% trans "Register new account" %}</a></li>
+        <li><a href="{% url guest.views.admin_list %}">{% trans "Admin" %}</a></li>
+
+        <li><a href="{% url guest.views.change_locale 'nb' %}?next={{ request.path }}">{% trans "Norwegian" %}</a></li>
+        <li><a href="{% url guest.views.change_locale 'en' %}?next={{ request.path }}">{% trans "English" %}</a></li>
+        
     </ul>
     {% if messages %}
     <ul class="messages">
@@ -22,6 +28,7 @@
         {% endfor %}
     </ul>
     {% endif %}
+    <h3>{{ title }}</h3>
     <div id="content">
       {% block content %}{% endblock %}
     </div>

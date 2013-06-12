@@ -1,0 +1,167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-12 16:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: guest/views.py:57
+msgid "Feide Guest Account System"
+msgstr "Feide Guest Account System"
+
+#: guest/views.py:66
+msgid "Logged in as %(uid) (%(mail))"
+msgstr "Logged in as %(uid) (%(mail))"
+
+#: guest/views.py:69 guest/views.py:71
+msgid "Wrong username and/or password"
+msgstr "Wrong username and/or password"
+
+#: guest/views.py:73
+msgid "Login"
+msgstr "Login"
+
+#: guest/views.py:79
+msgid "Logged out."
+msgstr "Logged out."
+
+#: guest/views.py:81
+msgid "Not logged in."
+msgstr "Not logged in."
+
+#: guest/views.py:88
+msgid "Showing %(name)"
+msgstr "Showing %(name)"
+
+#: guest/views.py:125
+msgid "Edit %(name)"
+msgstr "Edit %(name)"
+
+#: guest/views.py:132
+msgid "Account deleted."
+msgstr "Account deleted."
+
+#: guest/views.py:147
+msgid "New Guest Account"
+msgstr "New Guest Account"
+
+#: guest/views.py:152
+msgid "Activation of Guest account on Feide"
+msgstr "Activation of Guest account on Feide"
+
+#: guest/views.py:157
+msgid ""
+"We've sent an activation mail to your address, %(mail). Follow it for "
+"further instructions."
+msgstr ""
+"We've sent an activation mail to your address, %(mail). Follow it for "
+"further instructions."
+
+#: guest/views.py:168
+#, python-format
+msgid "Account %(uid) created."
+msgstr "Account %(uid) created."
+
+#: guest/views.py:172
+msgid "Mail %(mail) not validated."
+msgstr "Mail %(mail) not validated."
+
+#: guest/views.py:178
+msgid ""
+"The activation link has expired. Please register again to recieve a new one."
+msgstr ""
+"The activation link has expired. Please register again to recieve a new one."
+
+#: guest/views.py:186
+msgid "Mail updated."
+msgstr "Mail updated."
+
+#: guest/views.py:194
+msgid "Activate account"
+msgstr "Activate account"
+
+#: guest/views.py:200
+msgid "Password recovery for Guest account on Feide"
+msgstr "Password recovery for Guest account on Feide"
+
+#: guest/views.py:205
+msgid ""
+"We've sent recovery mail to your mail address, %(mail). Follow it for "
+"further instructions."
+msgstr ""
+"We've sent recovery mail to your mail address, %(mail). Follow it for "
+"further instructions."
+
+#: guest/views.py:225
+msgid "Username or mail not found."
+msgstr "Username or mail not found."
+
+#: guest/views.py:230 templates/guest/base.html:15
+msgid "Recover account"
+msgstr "Recover account"
+
+#: guest/views.py:246
+msgid ""
+"The password reset link has expired. Please do recovery again for a new one."
+msgstr ""
+"The password reset link has expired. Please do recovery again for a new one."
+
+#: guest/views.py:254
+msgid "Reset password"
+msgstr "Reset password"
+
+#: guest/views.py:266
+msgid "Admin List"
+msgstr "Admin List"
+
+#: templates/guest/base.html:4
+msgid "FeideGuest"
+msgstr "FeideGuest"
+
+#: templates/guest/base.html:8
+msgid "Home"
+msgstr "Home"
+
+#: templates/guest/base.html:10
+msgid "Show Profile"
+msgstr "Show Profile"
+
+#: templates/guest/base.html:11
+msgid "Edit Profiles"
+msgstr "Edit Profiles"
+
+#: templates/guest/base.html:12
+msgid "Logged in as"
+msgstr "Logged in as"
+
+#: templates/guest/base.html:12
+msgid "Log out"
+msgstr "Log out"
+
+#: templates/guest/base.html:17
+msgid "Register new account"
+msgstr "Register new account"
+
+#: templates/guest/base.html:18
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/guest/base.html:20
+msgid "Norwegian"
+msgstr "Norwegian"
+
+#: templates/guest/base.html:21
+msgid "English"
+msgstr "English"

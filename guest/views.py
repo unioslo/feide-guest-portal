@@ -3,11 +3,14 @@
 from django.core.urlresolvers import reverse
 from django.core import signing
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib import messages
+from django.forms.models import model_to_dict
+from django.db.models import Q
+from django.utils.translation import ugettext as _
 
 from guest.models import Guest
 from guest.forms import GuestForm, RegisterMail, RecoveryForm, PasswordForm
@@ -16,6 +19,20 @@ from guest.tools import ssha, bind
 
 import time
 import copy
+
+
+def only_admin(fun):
+    def closure(request, *args, **kwargs):
+        if 'REMOTE_USER' in request.META and request.META['REMOTE_USER'] in settings.FEIDE_ADMIN_ACCOUNTS:
+            if 'uid' in kwargs:
+                guest = get_object_or_404(Guest, uid=kwargs['uid'])
+                del kwargs['uid']
+                kwargs['guest'] = guest
+                request.is_admin = True
+            return fun(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    return closure
 
 def logged_in(fun):
     def closure(request, *args, **kwargs):
@@ -29,8 +46,16 @@ def logged_in(fun):
         return redirect('guest.views.logout')
     return closure
 
+def change_locale(request, locale=None):
+    request.session['django_language'] = locale
+    response = redirect(request.GET.get('next','guest.views.home'))
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, locale)
+    return response
+
 def home(request):
-    return render(request, 'guest/home.html')
+    return render(request, 'guest/home.html', {
+        'title': _('Feide Guest Account System')
+        })
 
 def login(request):
     if request.POST:
@@ -38,55 +63,76 @@ def login(request):
             g = Guest.objects.get(uid=request.POST['uid'])
             if g and bind(g.dn, request.POST['userPassword']):
                 request.session['uid'] = g.uid
-                messages.add_message(request, messages.SUCCESS, 'Logged in as %s (%s)' % (g.uid, g.mail))
+                messages.add_message(request, messages.SUCCESS, _('Logged in as %(uid) (%(mail))') % {'uid':g.uid, 'mail':g.mail})
                 return redirect('guest.views.me')
             else:
-                messages.add_message(request, messages.ERROR, 'Wrong username and/or password')
+                messages.add_message(request, messages.ERROR, _('Wrong username and/or password'))
         except Guest.DoesNotExist:
-            messages.add_message(request, messages.ERROR, 'Wrong username and/or password')
-    return render(request, 'guest/home.html')
+            messages.add_message(request, messages.ERROR, _('Wrong username and/or password'))
+    return render(request, 'guest/home.html', {
+        'title': _('Login'),
+        })
 
 def logout(request):
     if 'uid' in request.session:
         del request.session['uid']
-        messages.add_message(request, messages.SUCCESS, 'Logged out.')
+        messages.add_message(request, messages.SUCCESS, _('Logged out.'))
     else:
-        messages.add_message(request, messages.ERROR, 'Not logged in.')
+        messages.add_message(request, messages.ERROR, _('Not logged in.'))
     return redirect('guest.views.home')
 
 
-@logged_in
-def me(request, guest=None):
+def show(request, guest=None):
     return render(request, 'guest/show.html', {
-        'fg':guest,
+        'fg': guest,
+        'title': _('Showing %(name)') % {'name': guest.displayName},
         })
+me = logged_in(show)
+admin_show = only_admin(show)
 
-@logged_in
-def edit_me(request, guest=None):
+def edit(request, guest=None):
     if request.POST:
-        old_mail = copy.copy(guest.mail)
-        gf = GuestForm(request.POST, instance=guest)
-        if gf.is_valid():
-            if gf.cleaned_data['mail'] != old_mail:
-                obj = {'uid':guest.uid, 'mail':gf.cleaned_data['mail'], 'time':time.time()}
-                send_activation_mail(request, obj)
-                gf.cleaned_data['mail'] = old_mail
-                guest = gf.save(commit=False)
-                guest.mail = old_mail
-                guest.userPassword = ssha(guest.userPassword) # ssha the new password
+        gf = GuestForm(request.POST)
+        if request.is_admin:
+            guest.uid = gf['uid'].value()
+            guest.mail = gf['mail'].value()
+            guest.givenName = gf['givenName'].value()
+            guest.sn = gf['sn'].value()
+            if gf['userPassword'].value(): # password changed
+                guest.userPassword = ssha(gf['userPassword'].value()) # ssha the new password
+            guest.save()
+            return redirect('guest.views.admin_show', uid=guest.uid)
+
+        else:
+            if gf.is_valid():
+                guest.uid = gf.cleaned_data['uid']
+                guest.givenName = gf.cleaned_data['givenName']
+                guest.sn = gf.cleaned_data['sn']
+                if gf.cleaned_data['userPassword']: # password changed
+                    guest.userPassword = ssha(gf.cleaned_data['userPassword']) # ssha the new password
                 guest.save()
-            return redirect('guest.views.me')
+
+                if gf.cleaned_data['mail'] != guest.mail: # mail changed
+                    obj = {'uid':guest.uid, 'mail':gf.cleaned_data['mail'], 'time':time.time()}
+                    send_activation_mail(request, obj)
+                return redirect('guest.views.me')
     else:
-        gf = GuestForm(instance=guest)
+        gf = GuestForm(initial=model_to_dict(guest))
+        if not request.is_admin:
+            gf.fields['uid'].widget.attrs['readonly'] = True
     return render(request, 'guest/edit.html', {
         'form':gf,
+        'title': _('Edit %(name)') % {'name': guest.displayName},
         })
+edit_me = logged_in(edit)
+admin_edit = only_admin(edit)
 
-@logged_in
-def delete_me(request, guest=None):
+def delete(request, guest=None):
     guest.delete()
-    messages.add_message(request, messages.SUCCESS, 'Account deleted.')
+    messages.add_message(request, messages.SUCCESS, _('Account deleted.'))
     return redirect('guest.views.home')
+delete_me = logged_in(delete)
+admin_delete = only_admin(delete)
 
 def new(request):
     if request.POST:
@@ -97,17 +143,18 @@ def new(request):
     else:
         f = RegisterMail()
     return render(request, 'guest/edit.html', {
-        'form':f,
+        'form': f,
+        'title': _('New Guest Account'),
         })
 
 def send_activation_mail(request, obj):
     code = signing.dumps(obj)
-    send_mail('Activation of Guest account on Feide',
+    send_mail(_('Activation of Guest account on Feide'),
               render_to_string('guest/activation_mail.txt', {'code':code}),
               settings.ACTIVATION_FROM_MAIL,
               [obj['mail']],
               fail_silently=False)
-    messages.add_message(request, messages.SUCCESS, "We've sent an activation mail to your address, %s. Follow it for further instructions." % obj['mail'])
+    messages.add_message(request, messages.SUCCESS, _("We've sent an activation mail to your address, %(mail). Follow it for further instructions.") % {'mail': obj['mail']})
 
 def activate(request, code=None):
     if request.POST:
@@ -118,17 +165,17 @@ def activate(request, code=None):
                 g.userPassword = ssha(g.userPassword) # ssha the new password
                 g.save()
                 del request.session['validated_mail']
-                messages.add_message(request, messages.SUCCESS, 'Account %s created.' % g.uid)
+                messages.add_message(request, messages.SUCCESS, _('Account %(uid) created.') % {'uid': g.uid})
                 request.session['uid'] = g.uid
                 return redirect('guest.views.me')
             else:
-                messages.add_message(request, messages.ERROR, 'Mail %s not validated.' % gf.cleaned_data['mail'])
+                messages.add_message(request, messages.ERROR, _('Mail %(mail) not validated.') % {'mail': gf.cleaned_data['mail']})
                 return redirect('guest.views.home')
 
     else:
         obj = signing.loads(code)
         if time.time() - obj['time'] > 60*60*2: # 2 hour TTL on activation links
-            messages.add_message(request, messages.ERROR, 'The activation link has expired. Please register again to recieve a new one.')
+            messages.add_message(request, messages.ERROR, _('The activation link has expired. Please register again to recieve a new one.'))
             return redirect('guest.views.home')
         else:
             if 'uid' in obj:
@@ -136,25 +183,26 @@ def activate(request, code=None):
                 g.mail = obj['mail']
                 g.save()
                 request.session['uid'] = g.uid
-                messages.add_message(request, messages.SUCCESS, 'Mail updated.')
+                messages.add_message(request, messages.SUCCESS, _('Mail updated.'))
                 return redirect('guest.views.me')
             else:
                 request.session['validated_mail'] = obj['mail']
                 gf = GuestForm(initial={'mail':obj['mail']})
                 gf.fields['mail'].widget.attrs['readonly'] = True
     return render(request, 'guest/edit.html', {
-        'form':gf,
+        'form': gf,
+        'title': _('Activate account'),
         })
 
 def send_recovery_mail(request, guest):
     obj = {'uid':guest.uid, 'time':time.time()}
     code = signing.dumps(obj)
-    send_mail('Password recovery for Guest account on Feide',
+    send_mail(_('Password recovery for Guest account on Feide'),
               render_to_string('guest/recovery_mail.txt', {'guest':guest, 'code':code}),
               settings.ACTIVATION_FROM_MAIL,
               [guest.mail],
               fail_silently=False)
-    messages.add_message(request, messages.SUCCESS, "We've sent recovery mail to your mail address, %s. Follow it for further instructions." % guest.mail)
+    messages.add_message(request, messages.SUCCESS, _("We've sent recovery mail to your mail address, %(mail). Follow it for further instructions.") % {'mail': guest.mail})
     return redirect('guest.views.home')
 
 def recover(request):
@@ -174,11 +222,12 @@ def recover(request):
                     return send_recovery_mail(request, g)
                 except Guest.DoesNotExist:
                     pass
-        f.fields['ident'].error = 'Username or mail not found.'
+        f.fields['ident'].error = _('Username or mail not found.')
     else:
         f = RecoveryForm()
     return render(request, 'guest/edit.html',{
-        'form':f,
+        'form': f,
+        'title': _('Recover account'),
         })
 
 def reset_password(request, code):
@@ -194,12 +243,25 @@ def reset_password(request, code):
     else:
         obj = signing.loads(code)
         if time.time() - obj['time'] > 60*60*2: # 2 hour TTL on password reset links
-            messages.add_message(request, messages.ERROR, 'The password reset link has expired. Please do recovery again for a new one.')
+            messages.add_message(request, messages.ERROR, _('The password reset link has expired. Please do recovery again for a new one.'))
             return redirect('guest.views.recover')
         else:
             g = get_object_or_404(Guest, uid=obj['uid'])
             pf = PasswordForm()
             request.session['recovery_uid'] = g.uid
     return render(request, 'guest/edit.html', {
-        'form':pf,
+        'form': pf,
+        'title': _('Reset password'),
+        })
+
+def admin_list(request):
+    q = request.GET.get('q', None)
+    if q:
+        query = Q(uid__icontains=q) | Q(mail__icontains=q) | Q(displayName__icontains=q)
+        guests = Guest.objects.filter(query)
+    else:
+        guests = Guest.objects.all()
+    return render(request, 'guest/admin_list.html', {
+        'guests': guests,
+        'title': _('Admin List'),
         })
