@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^guest/recover$', 'guest.views.recover'),
     url(r'^guest/reset/(?P<code>.+)$', 'guest.views.reset_password'),
 
-    url(r'^guest/change_locale/(?P<locale>[A-Za-z-]+)/$', 'guest.views.change_locale'),
+    url(r'^guest/change_locale$', 'guest.views.change_locale'),
 
     url(r'^admin/$', 'guest.views.admin_list'),
     url(r'^admin/(?P<uid>[A-Za-z_0-9-]+)$', 'guest.views.admin_show', name='admin_show'),

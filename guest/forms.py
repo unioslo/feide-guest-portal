@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
+from django.utils.translation import ugettext_lazy as _
 
 from guest.models import Guest
 
@@ -8,18 +9,14 @@ class RegisterMail(forms.Form):
     mail = forms.EmailField()
 
 class GuestForm(forms.Form):
-    uid = forms.CharField()
-    mail = forms.EmailField()
-    userPassword = forms.CharField(widget=PasswordInput(attrs={'placeholder':'old password'}))
-    givenName = forms.CharField()
-    sn = forms.CharField()
-    #class Meta:
-    #    model = Guest
-    #    fields = ['uid', 'mail', 'userPassword', 'givenName', 'sn']
-    #    widgets = {'userPassword': PasswordInput(attrs={'placeholder':'old password'}), }
+    uid = forms.CharField(label=_('Username'))
+    mail = forms.EmailField(label=_('Mail'))
+    userPassword = forms.CharField(label=_('Password'), widget=PasswordInput(attrs={'placeholder':_('old password')}))
+    givenName = forms.CharField(label=_('Given name'))
+    sn = forms.CharField(label=_('Surname'))
 
 class RecoveryForm(forms.Form):
-    ident = forms.CharField()
+    ident = forms.CharField(label=_('Username or mail'))
 
 class PasswordForm(forms.Form):
-    userPassword = forms.CharField(widget=PasswordInput)
+    userPassword = forms.CharField(label=_('New password'), widget=PasswordInput)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-12 16:15+0200\n"
+"POT-Creation-Date: 2013-06-13 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,151 +17,261 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: guest/views.py:57
+#: guest/forms.py:12 templates/guest/show.html:6
+msgid "Username"
+msgstr "Username"
+
+#: guest/forms.py:13 templates/guest/show.html:7
+msgid "Mail"
+msgstr "Mail"
+
+#: guest/forms.py:14
+msgid "Password"
+msgstr "Password"
+
+#: guest/forms.py:14
+msgid "old password"
+msgstr "old password"
+
+#: guest/forms.py:15 templates/guest/show.html:8
+msgid "Given name"
+msgstr "Given name"
+
+#: guest/forms.py:16 templates/guest/show.html:9
+msgid "Surname"
+msgstr "Surname"
+
+#: guest/forms.py:19
+msgid "Username or mail"
+msgstr "Username or mail"
+
+#: guest/forms.py:22
+msgid "New password"
+msgstr "New password"
+
+#: guest/models.py:20 templates/guest/base.html:18
+msgid "username"
+msgstr "username"
+
+#: guest/models.py:21
+msgid "mail"
+msgstr "mail"
+
+#: guest/models.py:22 templates/guest/base.html:18
+msgid "password"
+msgstr "password"
+
+#: guest/models.py:23
+msgid "realm"
+msgstr "realm"
+
+#: guest/models.py:24
+msgid "given name"
+msgstr "given name"
+
+#: guest/models.py:25
+msgid "surname"
+msgstr "surname"
+
+#: guest/models.py:26
+msgid "common name"
+msgstr "common name"
+
+#: guest/models.py:27
+msgid "display name"
+msgstr "display name"
+
+#: guest/views.py:66
 msgid "Feide Guest Account System"
 msgstr "Feide Guest Account System"
 
-#: guest/views.py:66
-msgid "Logged in as %(uid) (%(mail))"
-msgstr "Logged in as %(uid) (%(mail))"
+#: guest/views.py:75
+#, python-format
+msgid "Logged in as %(uid)s (%(mail)s)"
+msgstr "Logged in as %(uid)s (%(mail)s)"
 
-#: guest/views.py:69 guest/views.py:71
+#: guest/views.py:78 guest/views.py:81
 msgid "Wrong username and/or password"
 msgstr "Wrong username and/or password"
 
-#: guest/views.py:73
+#: guest/views.py:84 templates/guest/base.html:18
 msgid "Login"
 msgstr "Login"
 
-#: guest/views.py:79
+#: guest/views.py:90
 msgid "Logged out."
 msgstr "Logged out."
 
-#: guest/views.py:81
+#: guest/views.py:92
 msgid "Not logged in."
 msgstr "Not logged in."
 
-#: guest/views.py:88
-msgid "Showing %(name)"
-msgstr "Showing %(name)"
+#: guest/views.py:100
+#, python-format
+msgid "Showing %(name)s"
+msgstr "Showing %(name)s"
 
-#: guest/views.py:125
-msgid "Edit %(name)"
-msgstr "Edit %(name)"
+#: guest/views.py:137
+#, python-format
+msgid "Edit %(name)s"
+msgstr "Edit %(name)s"
 
-#: guest/views.py:132
+#: guest/views.py:144
 msgid "Account deleted."
 msgstr "Account deleted."
 
-#: guest/views.py:147
+#: guest/views.py:159
 msgid "New Guest Account"
 msgstr "New Guest Account"
 
-#: guest/views.py:152
+#: guest/views.py:164
 msgid "Activation of Guest account on Feide"
 msgstr "Activation of Guest account on Feide"
 
-#: guest/views.py:157
-msgid ""
-"We've sent an activation mail to your address, %(mail). Follow it for "
-"further instructions."
-msgstr ""
-"We've sent an activation mail to your address, %(mail). Follow it for "
-"further instructions."
-
-#: guest/views.py:168
+#: guest/views.py:169
 #, python-format
-msgid "Account %(uid) created."
-msgstr "Account %(uid) created."
+msgid ""
+"We've sent an activation mail to your address, %(mail)s. Follow it for "
+"further instructions."
+msgstr ""
+"We've sent an activation mail to your address, %(mail)s. Follow it for "
+"further instructions."
 
-#: guest/views.py:172
-msgid "Mail %(mail) not validated."
-msgstr "Mail %(mail) not validated."
+#: guest/views.py:184
+#, python-format
+msgid "Account %(uid)s created."
+msgstr "Account %(uid)s created."
 
-#: guest/views.py:178
+#: guest/views.py:188
+#, python-format
+msgid "Mail %(mail)s not validated."
+msgstr "Mail %(mail)s not validated."
+
+#: guest/views.py:196
+msgid ""
+"The activation link is broken. Are you shure you've entered it correctly?"
+msgstr ""
+"The activation link is broken. Are you shure you've entered it correctly?"
+
+#: guest/views.py:200
 msgid ""
 "The activation link has expired. Please register again to recieve a new one."
 msgstr ""
 "The activation link has expired. Please register again to recieve a new one."
 
-#: guest/views.py:186
+#: guest/views.py:209
 msgid "Mail updated."
 msgstr "Mail updated."
 
-#: guest/views.py:194
+#: guest/views.py:217
 msgid "Activate account"
 msgstr "Activate account"
 
-#: guest/views.py:200
+#: guest/views.py:223
 msgid "Password recovery for Guest account on Feide"
 msgstr "Password recovery for Guest account on Feide"
 
-#: guest/views.py:205
+#: guest/views.py:228
+#, python-format
 msgid ""
-"We've sent recovery mail to your mail address, %(mail). Follow it for "
+"We've sent recovery mail to your mail address, %(mail)s. Follow it for "
 "further instructions."
 msgstr ""
-"We've sent recovery mail to your mail address, %(mail). Follow it for "
+"We've sent recovery mail to your mail address, %(mail)s. Follow it for "
 "further instructions."
 
-#: guest/views.py:225
+#: guest/views.py:248
 msgid "Username or mail not found."
 msgstr "Username or mail not found."
 
-#: guest/views.py:230 templates/guest/base.html:15
+#: guest/views.py:253 templates/guest/base.html:20
 msgid "Recover account"
 msgstr "Recover account"
 
-#: guest/views.py:246
+#: guest/views.py:269
 msgid ""
 "The password reset link has expired. Please do recovery again for a new one."
 msgstr ""
 "The password reset link has expired. Please do recovery again for a new one."
 
-#: guest/views.py:254
+#: guest/views.py:278
 msgid "Reset password"
 msgstr "Reset password"
 
-#: guest/views.py:266
+#: guest/views.py:290
 msgid "Admin List"
 msgstr "Admin List"
+
+#: templates/guest/admin_list.html:11
+msgid "show"
+msgstr "show"
+
+#: templates/guest/admin_list.html:11
+msgid "edit"
+msgstr "edit"
+
+#: templates/guest/admin_list.html:11
+msgid "delete"
+msgstr "delete"
 
 #: templates/guest/base.html:4
 msgid "FeideGuest"
 msgstr "FeideGuest"
 
-#: templates/guest/base.html:8
+#: templates/guest/base.html:12
 msgid "Home"
 msgstr "Home"
 
-#: templates/guest/base.html:10
+#: templates/guest/base.html:14
 msgid "Show Profile"
 msgstr "Show Profile"
 
-#: templates/guest/base.html:11
+#: templates/guest/base.html:15
 msgid "Edit Profiles"
 msgstr "Edit Profiles"
 
-#: templates/guest/base.html:12
+#: templates/guest/base.html:16
 msgid "Logged in as"
 msgstr "Logged in as"
 
-#: templates/guest/base.html:12
+#: templates/guest/base.html:16
 msgid "Log out"
 msgstr "Log out"
 
-#: templates/guest/base.html:17
+#: templates/guest/base.html:19
 msgid "Register new account"
 msgstr "Register new account"
 
-#: templates/guest/base.html:18
+#: templates/guest/base.html:24
+msgid "Language"
+msgstr "Language"
+
+#: templates/guest/base.html:25
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/guest/base.html:20
-msgid "Norwegian"
-msgstr "Norwegian"
+#: templates/guest/edit.html:9
+msgid "Submit"
+msgstr "Submit"
 
-#: templates/guest/base.html:21
-msgid "English"
-msgstr "English"
+#: templates/guest/home.html:5
+msgid ""
+"The Feide Guest Accouns System lets you create a guest account for the Feide "
+"authentication system. To get started press the \"Register new account\" "
+"link on the top of the page."
+msgstr ""
+"The Feide Guest Accouns System lets you create a guest account for the Feide "
+"authentication system. To get started press the \"Register new account\" "
+"link on the top of the page."
+
+#: templates/guest/home.html:6
+msgid "Support"
+msgstr "Support"
+
+#: templates/guest/home.html:6
+msgid "Any questions regarding this service should be sent to"
+msgstr "Any questions regarding this service should be sent to"
+
+#: templates/guest/show.html:10
+msgid "Feide ID"
+msgstr "Feide ID"

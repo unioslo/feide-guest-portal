@@ -17,7 +17,7 @@ def ssha(secret):
     return '{SSHA}' + b64encode(m.digest() + salt)
 
 def bind(user, pwd):
-    settings_dict = settings.DATABASES['ldap']
+    settings_dict = settings.DATABASES['default']
     try:
         connection = ldap.initialize(settings_dict['NAME'])                                                                                                   
         connection.simple_bind_s(user,pwd) 

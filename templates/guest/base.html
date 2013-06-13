@@ -2,35 +2,40 @@
 <html>
   <head>
     <title>{% trans "FeideGuest" %} - {{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
-    <ul>
-      <li><a href="{% url guest.views.home %}">{% trans "Home" %}</a></li>
+    <nav class="navbar color">
+        <!--li><img src="https://www.uninett.no/sites/www.uninett.no/themes/uninett_2012/images/logo.png"></li-->
+        <img src="/static/emblem.png">
+        <a href="{% url guest.views.home %}">{% trans "Home" %}</a>
         {% if request.session.uid %}
-        <li><a href="{% url guest.views.me %}">{% trans "Show Profile" %}</a></li>
-        <li><a href="{% url guest.views.edit_me %}">{% trans "Edit Profiles" %}</a></li>
-        <li>{% trans "Logged in as" %} {{ request.session.uid }} - <a href="{% url guest.views.logout %}">{% trans "Log out" %}</a></li>
+        <a href="{% url guest.views.me %}">{% trans "Show Profile" %}</a>
+        <a href="{% url guest.views.edit_me %}">{% trans "Edit Profiles" %}</a>
+        {% trans "Logged in as" %} {{ request.session.uid }} - <a href="{% url guest.views.logout %}">{% trans "Log out" %}</a>
         {% else %}
-            <li><form method="post" action="{% url guest.views.login %}">{% csrf_token %}<input name="uid" placeholder="username" /><input type="password" placeholder="password" name="userPassword" /><input type="submit" value="Login" /></form></li>
-            <li><a href="{% url guest.views.recover %}">{% trans "Recover account" %}</a></li>
+          <form method="post" action="{% url guest.views.login %}">{% csrf_token %}<input name="uid" placeholder="{% trans "username" %}" /><input type="password" placeholder="{% trans "password" %}" name="userPassword" /><input class="btn" type="submit" value="{% trans "Login" %}" /></form>
+          <a href="{% url guest.views.new %}">{% trans "Register new account" %}</a>
+          <a href="{% url guest.views.recover %}">{% trans "Recover account" %}</a>
         {% endif %}
-        <li><a href="{% url guest.views.new %}">{% trans "Register new account" %}</a></li>
-        <li><a href="{% url guest.views.admin_list %}">{% trans "Admin" %}</a></li>
 
-        <li><a href="{% url guest.views.change_locale 'nb' %}?next={{ request.path }}">{% trans "Norwegian" %}</a></li>
-        <li><a href="{% url guest.views.change_locale 'en' %}?next={{ request.path }}">{% trans "English" %}</a></li>
-        
-    </ul>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <h3>{{ title }}</h3>
-    <div id="content">
-      {% block content %}{% endblock %}
+
+        <form class="pull-right" method="get" action="{% url guest.views.change_locale %}"><select onchange="this.form.submit()" name="locale"><option>{% trans "Language" %}</option>{% for lang in LANGUAGES %}<option value="{{ lang.0 }}">{{ lang.1 }}</option>{% endfor %}</select><input hidden name="next" value="{{ request.path }}" /></form>
+        <a class="pull-right" href="{% url guest.views.admin_list %}">{% trans "Admin" %}</a>
+    </nav>
+    <div id="wrapper">
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <h3>{{ title }}</h3>
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
     </div>
   </body>
 </html>

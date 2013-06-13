@@ -1,4 +1,5 @@
 {% extends "guest/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <form method="get" action="">{% csrf_token %}
@@ -7,7 +8,7 @@
 </form>
 <ul>
   {% for guest in  guests %}
-  <li>{{ guest.uid }} - {{ guest.mail }} <a href="{% url guest.views.admin_show uid=guest.uid %}">show</a> <a href="{% url guest.views.admin_edit uid=guest.uid %}">edit</a> <a href="{% url guest.views.admin_delete uid=guest.uid %}">delete</a></li>
+  <li>{{ guest.uid }} - {{ guest.mail }} <a href="{% url guest.views.admin_show uid=guest.uid %}">{% trans "show" %}</a> <a href="{% url guest.views.admin_edit uid=guest.uid %}">{% trans "edit" %}</a> <a href="{% url guest.views.admin_delete uid=guest.uid %}">{% trans "delete" %}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

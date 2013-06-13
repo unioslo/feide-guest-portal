@@ -1,0 +1,88 @@
+ul{
+  list-style: none;
+}
+a {
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+a:hover {
+  color: #000;
+  border-bottom: 1px solid;
+}
+
+/* utility classes */
+.pull-right{
+  float: right;
+}
+
+/* uninett red color */
+.color {
+  background-color: rgb(210,5,5);
+}
+
+.color {
+  color: #ddd;
+  font-family: "Helvetica",Arial;
+}
+.color a{
+  color: #ddd;
+  font-weight: bold;
+  font-family: "Helvetica",Arial;
+}
+.color a:hover {
+  color: #fff;
+}
+
+/* navbar styles */
+.navbar{
+  padding: 4px;
+}
+.navbar>ul {
+  margin: 0px;
+  padding: 0px;
+}
+.navbar>ul>li {
+  display: inline;
+  padding: 4px;
+}
+.navbar form {
+  display: inline;
+}
+.navbar input {
+  width: 100px;
+}
+.navbar .btn {
+  width: 80px;
+}
+
+/* wrapper */
+#wrapper{
+  padding: 10px;
+}
+
+/* Different messages style */
+.message{
+  padding: 10px;
+  border-radius: 4px;
+}
+.debug{
+  background-color:#999;
+}
+.info{
+  background-color:#999;
+}
+.success{
+  background-color:#4a4;
+}
+.warning{
+  background-color:#f33;
+}
+.error{
+  background-color:#f33;
+}
+
+/* Edit form styling */
+form>table>tbody>tr>th {
+  text-align: left;
+}

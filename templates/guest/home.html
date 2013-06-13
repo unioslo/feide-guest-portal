@@ -1,4 +1,7 @@
 {% extends "guest/base.html" %}
+{% load i18n %}
 
 {% block content %}
+  <p>{% trans 'The Feide Guest Accouns System lets you create a guest account for the Feide authentication system. To get started press the "Register new account" link on the top of the page.' %}</p>
+  <p><h3>{% trans "Support" %}:</h3>{% trans "Any questions regarding this service should be sent to" %}: <a href="mailto:support@feide.no">support@feide.no</a></p>
 {% endblock %}

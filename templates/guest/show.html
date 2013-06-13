@@ -1,11 +1,12 @@
 {% extends "guest/base.html" %}
+{% load i18n %}
 
 {% block content %}
   <ul>
-    <li>uid: {{ fg.uid }}</li>
-    <li>mail: {{ fg.mail }}</li>
-    <li>givenName: {{ fg.givenName }}</li>
-    <li>surname: {{ fg.sn }}</li>
-    <li>eduPersonPrincipalName: {{ fg.eduPersonPrincipalName }}</li>
+    <li>{% trans "Username" %}: {{ fg.uid }}</li>
+    <li>{% trans "Mail" %}: {{ fg.mail }}</li>
+    <li>{% trans "Given name" %}: {{ fg.givenName }}</li>
+    <li>{% trans "Surname" %}: {{ fg.sn }}</li>
+    <li>{% trans "Feide ID" %}: {{ fg.eduPersonPrincipalName }}</li>
   </ul>
 {% endblock %}
