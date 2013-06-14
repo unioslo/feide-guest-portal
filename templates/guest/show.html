@@ -9,4 +9,10 @@
     <li>{% trans "Surname" %}: {{ fg.sn }}</li>
     <li>{% trans "Feide ID" %}: {{ fg.eduPersonPrincipalName }}</li>
   </ul>
+  <a href="{% url guest.views.edit_me %}">{% trans "Edit" %}</a>
+  <a href="{% url guest.views.delete_me %}">{% trans "Delete Account" %}</a>
+  {% if request.is_admin %}
+    <a href="{% url guest.views.admin_list %}">{% trans "List" %}</a>
+    <a href="{% url guest.views.admin_edit uid=fg.uid %}">{% trans "Admin Edit" %}</a>
+  {% endif %}
 {% endblock %}

@@ -6,31 +6,27 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
-    <nav class="navbar color">
-        <!--li><img src="https://www.uninett.no/sites/www.uninett.no/themes/uninett_2012/images/logo.png"></li-->
-        <img src="/static/emblem.png">
-        <a href="{% url guest.views.home %}">{% trans "Home" %}</a>
-        {% if request.session.uid %}
-        <a href="{% url guest.views.me %}">{% trans "Show Profile" %}</a>
-        <a href="{% url guest.views.edit_me %}">{% trans "Edit Profiles" %}</a>
-        {% trans "Logged in as" %} {{ request.session.uid }} - <a href="{% url guest.views.logout %}">{% trans "Log out" %}</a>
-        {% else %}
-          <form method="post" action="{% url guest.views.login %}">{% csrf_token %}<input name="uid" placeholder="{% trans "username" %}" /><input type="password" placeholder="{% trans "password" %}" name="userPassword" /><input class="btn" type="submit" value="{% trans "Login" %}" /></form>
-          <a href="{% url guest.views.new %}">{% trans "Register new account" %}</a>
-          <a href="{% url guest.views.recover %}">{% trans "Recover account" %}</a>
-        {% endif %}
+    <div class="navbar color">
+      <!-- left-floated elements have to be BEFORE the elements you want to float on tha same line as.
+           If not, the floated elements won't have a proper reference of what height to start the float. -->
+      {% if request.session.uid %}
+        <span class="pull-right">{% trans "Logged in as" %} {{ request.session.uid }} - <a href="{% url guest.views.logout %}">{% trans "Log out" %}</a></span>
+      {% else %}
+        <a class="pull-right" href="{% url guest.views.login %}">{% trans "Log in" %}</a>
+      {% endif %}
+      <form class="pull-right" method="get" action="{% url guest.views.change_locale %}"><select onchange="this.form.submit()" name="locale"><option>{% trans "Language" %}</option>{% for lang in LANGUAGES %}<option value="{{ lang.0 }}">{{ lang.1 }}</option>{% endfor %}</select><input type="hidden" name="next" value="{{ request.path }}" /></form>
+      <img src="/static/emblem.png">
+      <a href="{% url guest.views.home %}">{% trans "Start" %}</a>
+      <a href="{% url guest.views.me %}">{% trans "Show Profile" %}</a>
 
-
-        <form class="pull-right" method="get" action="{% url guest.views.change_locale %}"><select onchange="this.form.submit()" name="locale"><option>{% trans "Language" %}</option>{% for lang in LANGUAGES %}<option value="{{ lang.0 }}">{{ lang.1 }}</option>{% endfor %}</select><input hidden name="next" value="{{ request.path }}" /></form>
-        <a class="pull-right" href="{% url guest.views.admin_list %}">{% trans "Admin" %}</a>
-    </nav>
+    </div>
     <div id="wrapper">
       {% if messages %}
-      <ul class="messages">
-          {% for message in messages %}
-          <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-      </ul>
+        <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
       {% endif %}
       <h3>{{ title }}</h3>
       <div id="content">

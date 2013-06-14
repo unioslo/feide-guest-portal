@@ -1,0 +1,29 @@
+{% extends "guest/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<form method="post" action="{% url guest.views.login %}">{% csrf_token %}
+  <table>
+    <tbody>
+      <tr>
+        <th>Username:</th>
+        <td>
+          <input name="uid" placeholder="{% trans "username" %}" />
+        </td>
+      </tr>
+      <tr>
+        <th>Password:</th>
+        <td>
+          <input type="password" placeholder="{% trans "password" %}" name="userPassword" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input class="btn" type="submit" value="{% trans "Login" %}" /></form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<a href="{% url guest.views.recover %}">{% trans "Forgotten username/password" %}</a>
+{% endblock %}

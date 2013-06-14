@@ -25,13 +25,13 @@ If you don't have pip you can use the standard `python setup.py` method instead.
 ## Setup
 ### guest/settings_local.py
 Copy `guest/settings_local.py.template` to `guest/settings_local.py` and edit it to fit your installation.
+Remember to edit the `INSTALL_DIR` variable to the correct directory.
 
 ### guest/wsgi.py
-Edit `guest/wsgi.py`.
-Add the absolute root path of the project to `sys.path` so that imports work correctly.
+Edit `INSTALL_DIR` in `guest/wsgi.py` to the same value as in the settings file, but without the trailing slash.
 
 ### mail:
-Follow the [django mail guide](https://docs.djangoproject.com/en/dev/topics/email/) to setup a correct mail backend.
+Follow the [django mail guide](https://docs.djangoproject.com/en/dev/topics/email/) to setup a correct mail settings for your installation.
 
 ### logging:
 The application uses logging to warn about potential errors and strange user behaviour. Follow the [django logging guide](https://docs.djangoproject.com/en/dev/topics/logging/)

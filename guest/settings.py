@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+from os.path import join
+
+# import our instance specific settings
+from .settings_local import *
+
 DATABASE_ROUTERS = ['ldapdb.router.Router']
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -21,7 +26,7 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    '/home/lysgaard/guest/locale/',
+    join(INSTALL_DIR,'locale/'),
 )
 
 SITE_ID = 1
@@ -50,7 +55,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/lysgaard/guest/static/'
+STATIC_ROOT = join(INSTALL_DIR,'static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -71,6 +76,12 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    join(INSTALL_DIR,'templates'),
+)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -148,5 +159,4 @@ LOGGING = {
     }
 }
 
-# import our instance specific settings
-from .settings_local import *
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

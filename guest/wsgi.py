@@ -16,7 +16,9 @@ framework.
 import os
 import sys
 
-sys.path += ['/home/lysgaard/guest'] # this path has to be changed to the absolute root of the project
+# INSTALL_DIR is the root directory of the django project.
+INSTALL_DIR = '/home/lysgaard/guest'
+sys.path += [INSTALL_DIR]
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "guest.settings")
 

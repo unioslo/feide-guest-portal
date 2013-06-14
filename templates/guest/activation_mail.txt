@@ -1,8 +1,10 @@
+{% load i18n %}
 {% autoescape off %}
+{% blocktrans %}
 Hi, someone has registered this mail address as a Feide Guest Account.
 
 If this was you, please click this link:
-{% url guest.views.activate code=code %}
+{{ url }}
 If not, please disregard this message.
-
+{% endblocktrans %}
 {% endautoescape %}

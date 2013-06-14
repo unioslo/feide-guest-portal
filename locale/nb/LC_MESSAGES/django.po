@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-13 13:30+0200\n"
+"POT-Creation-Date: 2013-06-14 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: guest/forms.py:12 templates/guest/show.html:6
-msgid "Username"
-msgstr "Brukernavn"
-
-#: guest/forms.py:13 templates/guest/show.html:7
-msgid "Mail"
-msgstr "Mail"
-
-#: guest/forms.py:14
-msgid "Password"
-msgstr "Passord"
-
-#: guest/forms.py:14
-msgid "old password"
-msgstr "gammelt passord"
-
-#: guest/forms.py:15 templates/guest/show.html:8
+#: guest/forms.py:14 guest/forms.py:30 guest/forms.py:49
+#: templates/guest/show.html:8
 msgid "Given name"
 msgstr "Fornavn"
 
-#: guest/forms.py:16 templates/guest/show.html:9
+#: guest/forms.py:15 guest/forms.py:31 guest/forms.py:50
+#: templates/guest/show.html:9
 msgid "Surname"
 msgstr "Etternavn"
 
-#: guest/forms.py:19
-msgid "Username or mail"
-msgstr "Brukernavn eller mail"
+#: guest/forms.py:16 guest/forms.py:47 templates/guest/show.html:7
+msgid "Mail"
+msgstr "Mail"
 
-#: guest/forms.py:22
+#: guest/forms.py:16
+msgid "old mail"
+msgstr "gammel mail"
+
+#: guest/forms.py:16
+msgid "Leave mail blank to keep the old one."
+msgstr "La mail være blank for å beholde den gamle."
+
+#: guest/forms.py:17 guest/forms.py:48
+msgid "Password"
+msgstr "Passord"
+
+#: guest/forms.py:17 guest/forms.py:48
+msgid "old password"
+msgstr "gammelt passord"
+
+#: guest/forms.py:17 guest/forms.py:48
+msgid "Leave password blank to keep the old one."
+msgstr "La passord være blank for å beholde det gamle."
+
+#: guest/forms.py:23
+msgid "Mail already in use."
+msgstr "Mail er allerede i bruk."
+
+#: guest/forms.py:28 guest/forms.py:46 templates/guest/show.html:6
+msgid "Username"
+msgstr "Brukernavn"
+
+#: guest/forms.py:29 guest/forms.py:56
 msgid "New password"
 msgstr "Nytt passord"
 
-#: guest/models.py:20 templates/guest/base.html:18
+#: guest/forms.py:38
+msgid ""
+"Username can only contain lower case letters, digits, \".\", \"-\" and \"_\"."
+msgstr ""
+"Brukernavn kan kun innehelde små bokstaver, tall, \".\", \"-\" og \"_\"."
+
+#: guest/forms.py:41
+msgid "Username already in use."
+msgstr "Brukernavn er allerede i bruk."
+
+#: guest/forms.py:53
+msgid "Username or mail"
+msgstr "Brukernavn eller mail"
+
+#: guest/models.py:20 templates/guest/login.html:11
 msgid "username"
 msgstr "brukernavn"
 
@@ -57,7 +85,7 @@ msgstr "brukernavn"
 msgid "mail"
 msgstr "mail"
 
-#: guest/models.py:22 templates/guest/base.html:18
+#: guest/models.py:22 templates/guest/login.html:17
 msgid "password"
 msgstr "passord"
 
@@ -81,54 +109,54 @@ msgstr "vanlig navn"
 msgid "display name"
 msgstr "visningsnavn"
 
-#: guest/views.py:66
+#: guest/views.py:70
 msgid "Feide Guest Account System"
 msgstr "Feide Gjestekontosystem"
 
-#: guest/views.py:75
+#: guest/views.py:79
 #, python-format
 msgid "Logged in as %(uid)s (%(mail)s)"
 msgstr "Logget inn som %(uid)s (%(mail)s)"
 
-#: guest/views.py:78 guest/views.py:81
+#: guest/views.py:82 guest/views.py:85
 msgid "Wrong username and/or password"
 msgstr "Feil brukernavn og/eller passord"
 
-#: guest/views.py:84 templates/guest/base.html:18
+#: guest/views.py:89 templates/guest/login.html:22
 msgid "Login"
 msgstr "Logg inn"
 
-#: guest/views.py:90
+#: guest/views.py:96
 msgid "Logged out."
 msgstr "Logget ut."
 
-#: guest/views.py:92
+#: guest/views.py:98
 msgid "Not logged in."
 msgstr "Ikke logget inn."
 
-#: guest/views.py:100
+#: guest/views.py:106
 #, python-format
 msgid "Showing %(name)s"
 msgstr "Viser %(name)s"
 
-#: guest/views.py:137
+#: guest/views.py:134 guest/views.py:154
 #, python-format
 msgid "Edit %(name)s"
 msgstr "Rediger %(name)s"
 
-#: guest/views.py:144
+#: guest/views.py:159
 msgid "Account deleted."
 msgstr "Konto slettet."
 
-#: guest/views.py:159
+#: guest/views.py:177
 msgid "New Guest Account"
 msgstr "Ny gjestekonto"
 
-#: guest/views.py:164
+#: guest/views.py:183
 msgid "Activation of Guest account on Feide"
 msgstr "Aktivering av gjestekonto på Feide"
 
-#: guest/views.py:169
+#: guest/views.py:188
 #, python-format
 msgid ""
 "We've sent an activation mail to your address, %(mail)s. Follow it for "
@@ -137,42 +165,37 @@ msgstr ""
 "Vi har sendt en aktiveringsmail til din adresse, %(mail)s. Les denne for "
 "videre innstruksjoner."
 
-#: guest/views.py:184
+#: guest/views.py:202
 #, python-format
 msgid "Account %(uid)s created."
 msgstr "Konto %(uid)s opprettet."
 
-#: guest/views.py:188
-#, python-format
-msgid "Mail %(mail)s not validated."
-msgstr "Mail %(mail)s validerte ikke."
-
-#: guest/views.py:196
+#: guest/views.py:209
 msgid ""
 "The activation link is broken. Are you shure you've entered it correctly?"
 msgstr ""
 "Aktiveringlinken er ødelagt. Er du sikker på at du tastet den inn korrekt?"
 
-#: guest/views.py:200
+#: guest/views.py:213
 msgid ""
 "The activation link has expired. Please register again to recieve a new one."
 msgstr ""
 "Aktiveringslinken har gått ut på dato. Vennligst registrer igjen for å motta "
 "en ny en."
 
-#: guest/views.py:209
+#: guest/views.py:222
 msgid "Mail updated."
 msgstr "Mail oppdatert."
 
-#: guest/views.py:217
+#: guest/views.py:229
 msgid "Activate account"
 msgstr "Aktivere konto"
 
-#: guest/views.py:223
+#: guest/views.py:237
 msgid "Password recovery for Guest account on Feide"
 msgstr "Passordgjenoppretting for gjestekonto på Feide"
 
-#: guest/views.py:228
+#: guest/views.py:242
 #, python-format
 msgid ""
 "We've sent recovery mail to your mail address, %(mail)s. Follow it for "
@@ -181,28 +204,45 @@ msgstr ""
 "Vi har sendt en mail til din adresse, %(mail)s. Følg denne for videre "
 "innstruksjoner."
 
-#: guest/views.py:248
+#: guest/views.py:262
 msgid "Username or mail not found."
 msgstr "Brukernavn eller mail ikke funnet."
 
-#: guest/views.py:253 templates/guest/base.html:20
+#: guest/views.py:267
 msgid "Recover account"
 msgstr "Gjennopprett konto"
 
-#: guest/views.py:269
+#: guest/views.py:283
 msgid ""
 "The password reset link has expired. Please do recovery again for a new one."
 msgstr ""
 "Tilbakestillingslinken har gått ut på dato. Vennligst gjør gjennoppretting "
 "igjen for å motta en ny en."
 
-#: guest/views.py:278
+#: guest/views.py:292
 msgid "Reset password"
 msgstr "Tilbakstill passord"
 
-#: guest/views.py:290
+#: guest/views.py:304
 msgid "Admin List"
 msgstr "Admin liste"
+
+#: templates/guest/activation_mail.txt:3
+#, python-format
+msgid ""
+"\n"
+"Hi, someone has registered this mail address as a Feide Guest Account.\n"
+"\n"
+"If this was you, please click this link:\n"
+"%(url)s\n"
+"If not, please disregard this message.\n"
+msgstr ""
+"\n"
+"Hei, noen har registrert denne mail addressen som en Feide Gjestekonto.\n"
+"\n"
+"Hvis dette var deg, vennligst klikk denne linken for å verifisere mailen:\n"
+"%(url)s\n"
+"Hvis ikke, vennligst se bort i fra denne mailen.\n"
 
 #: templates/guest/admin_list.html:11
 msgid "show"
@@ -220,59 +260,101 @@ msgstr "slett"
 msgid "FeideGuest"
 msgstr "FeideGjest"
 
-#: templates/guest/base.html:12
-msgid "Home"
-msgstr "Hjem"
-
-#: templates/guest/base.html:14
-msgid "Show Profile"
-msgstr "Vis Profil"
-
-#: templates/guest/base.html:15
-msgid "Edit Profiles"
-msgstr "Rediger Profil"
-
-#: templates/guest/base.html:16
+#: templates/guest/base.html:11
 msgid "Logged in as"
 msgstr "Logget inn som"
 
-#: templates/guest/base.html:16
+#: templates/guest/base.html:11
 msgid "Log out"
 msgstr "Logg ut"
 
-#: templates/guest/base.html:19
-msgid "Register new account"
-msgstr "Registrer ny konto"
+#: templates/guest/base.html:13 templates/guest/home.html:7
+msgid "Log in"
+msgstr "Logg inn"
 
-#: templates/guest/base.html:24
+#: templates/guest/base.html:15
 msgid "Language"
 msgstr "Språk"
 
-#: templates/guest/base.html:25
-msgid "Admin"
-msgstr "Admin"
+#: templates/guest/base.html:17
+msgid "Start"
+msgstr "Start"
 
-#: templates/guest/edit.html:9
+#: templates/guest/base.html:18
+msgid "Show Profile"
+msgstr "Vis Profil"
+
+#: templates/guest/edit.html:9 templates/guest/form.html:9
 msgid "Submit"
 msgstr "Send inn"
+
+#: templates/guest/edit.html:11
+msgid "Cancel"
+msgstr "Cancel"
+
+#: templates/guest/edit.html:13 templates/guest/show.html:15
+msgid "List"
+msgstr "List"
+
+#: templates/guest/edit.html:14
+msgid "Admin show"
+msgstr "Admin vis"
 
 #: templates/guest/home.html:5
 msgid ""
 "The Feide Guest Accouns System lets you create a guest account for the Feide "
-"authentication system. To get started press the \"Register new account\" "
-"link on the top of the page."
+"authentication system."
 msgstr ""
-"Feide gjestekontosystem lar deg lage gjestekontoer for Feide authentiseringsplattformen. "
-"For å starte, trykk på linken \"Register ny konto\" på toppen av siden."
+"Feide gjestekontosystem lar deg lage gjestekontoer for Feide "
+"authentiseringsplattformen."
 
-#: templates/guest/home.html:6
+#: templates/guest/home.html:8
+msgid "Register new account"
+msgstr "Registrer ny konto"
+
+#: templates/guest/home.html:10
 msgid "Support"
 msgstr "Support"
 
-#: templates/guest/home.html:6
+#: templates/guest/home.html:10
 msgid "Any questions regarding this service should be sent to"
 msgstr "Eventuelle spørsmål angående tjenesten kan sendes til"
+
+#: templates/guest/login.html:28
+msgid "Forgotten username/password"
+msgstr "Glemt brukernavn/passord"
+
+#: templates/guest/recovery_mail.txt:3
+#, python-format
+msgid ""
+"\n"
+"Hi, someone has requested a password reset for your account %(guest.uid)s in "
+"the Feide Guest system.\n"
+"\n"
+"If this was you, please click this link to reset your password:\n"
+"%(url)s\n"
+"If not, please disregard this message.\n"
+msgstr ""
+"\n"
+"Hei, noen har bedt om en passordtilbakestilling for din konto %(guest.uid)s på "
+"Feide gjestekontosystemet"
+"\n"
+"Hvis dette var deg, vennligst klikk denne linken for å tilbakestille passordet:\n"
+"%(url)s\n"
+"Hvis ikke, vennligst se bort i fra denne mailen.\n"
 
 #: templates/guest/show.html:10
 msgid "Feide ID"
 msgstr "Feide ID"
+
+#: templates/guest/show.html:12
+msgid "Edit"
+msgstr ""
+
+#: templates/guest/show.html:13
+msgid "Delete Account"
+msgstr "Slett Konto"
+
+#: templates/guest/show.html:16
+msgid "Admin Edit"
+msgstr "Admin Rediger"

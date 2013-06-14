@@ -16,38 +16,19 @@ a:hover {
   float: right;
 }
 
-/* uninett red color */
+/* color */
 .color {
-  background-color: rgb(210,5,5);
-}
-
-.color {
-  color: #ddd;
+  background-color: #ccc;
+  color: #000;
   font-family: "Helvetica",Arial;
-}
-.color a{
-  color: #ddd;
-  font-weight: bold;
-  font-family: "Helvetica",Arial;
-}
-.color a:hover {
-  color: #fff;
 }
 
 /* navbar styles */
 .navbar{
-  padding: 4px;
+  padding: 4px 10px 4px 10px;
 }
-.navbar>ul {
-  margin: 0px;
-  padding: 0px;
-}
-.navbar>ul>li {
-  display: inline;
-  padding: 4px;
-}
-.navbar form {
-  display: inline;
+.navbar>* {
+  margin: 0px 5px 0px 5px;
 }
 .navbar input {
   width: 100px;
@@ -82,7 +63,22 @@ a:hover {
   background-color:#f33;
 }
 
-/* Edit form styling */
+/* django form styling */
+.helptext{
+  font-size:60%;
+  color:#666;
+}
+.errorlist{
+  margin:0px;
+  margin-top:15px;
+}
+.errorlist>li{
+  color:#f33;
+}
 form>table>tbody>tr>th {
   text-align: left;
+
+}
+form>table>tbody>tr>* {
+  padding-bottom:10px;
 }

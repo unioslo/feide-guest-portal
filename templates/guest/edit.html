@@ -8,4 +8,9 @@
     </table>
     <input type="submit" value="{% trans "Submit" %}">
   </form>
+  <a href="{% url guest.views.me %}">{% trans "Cancel" %}</a>
+  {% if request.is_admin %}
+    <a href="{% url guest.views.admin_list %}">{% trans "List" %}</a>
+    <a href="{% url guest.views.admin_show uid=guest.uid %}">{% trans "Admin show" %}</a>
+  {% endif %}
 {% endblock %}
